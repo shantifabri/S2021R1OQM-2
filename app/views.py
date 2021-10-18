@@ -6,9 +6,11 @@ This file creates your application.
 """
 
 from app import app, db
+from sqlalchemy import func, Date, cast
 from flask import render_template, request, redirect, url_for, flash
-from app.forms import UserForm
-from app.models import User
+from app.forms import UserForm, GetTicketForm
+from app.models import User, Ticket
+import datetime
 # import sqlite3
 
 ###
@@ -16,22 +18,87 @@ from app.models import User
 ###
 
 @app.route('/')
-def home():
+def index():
     """Render website's home page."""
-    return render_template('home.html')
+    return render_template('index.html')
 
 
-@app.route('/about/')
+@app.route('/about')
 def about():
     """Render the website's about page."""
     
     return render_template('about.html', name="Mary Jane")
 
-@app.route('/users')
-def show_users():
-    users = db.session.query(User).all() # or you could have used User.query.all()
+@app.route('/officer')
+def officer():
+    return render_template('officer.html')
 
-    return render_template('show_users.html', users=users)
+@app.route('/manager')
+def manager():
+    return render_template('manager.html')
+
+@app.route('/board')
+def board():
+    return render_template('board.html')
+
+@app.route('/user')
+def user():
+    services = ['A','B','C']
+    numbers = db.session.query(func.max(Ticket.ticketnum),Ticket.service).filter(func.date(Ticket.date) == datetime.date.today()).group_by(Ticket.service).all()
+    serviceNums = {}
+    for serv in services:
+        serviceNums[serv] = 0
+    
+    for num in numbers:
+        serviceNums[num[1]] = num[0]
+
+    return render_template('user.html', serviceNumbers=serviceNums)
+
+@app.route('/add-ticket/<service>', methods=['POST', 'GET'])
+def add_ticket(service):
+    date = datetime.datetime.now()
+    number = db.session.query(func.max(Ticket.ticketnum),Ticket.service).group_by(Ticket.service).filter(Ticket.service == service).filter(func.date(Ticket.date) == datetime.date.today()).all()
+    try:
+        number = number[0][0]
+    except:
+        number = 0
+    number = number + 1
+    ticket = Ticket(service, number, date, "READY")
+    db.session.add(ticket)
+    db.session.commit()
+    flash('Ticket successfully generated')
+
+    services = ['A','B','C']
+    #users = db.session.query(User).all() # or you could have used User.query.all()
+    numbers = db.session.query(func.max(Ticket.ticketnum),Ticket.service).group_by(Ticket.service).filter(func.date(Ticket.date) == datetime.date.today()).all()
+    serviceNums = {}
+    for num in numbers:
+        serviceNums[num[1]] = num[0]
+
+    return redirect(url_for('user', serviceNumbers=serviceNums))
+
+@app.route('/serve-customer/<service>', methods=['POST', 'GET'])
+def serve_customer(service):
+    # date = datetime.datetime.now()
+    # number = db.session.query(func.max(Ticket.ticketnum),Ticket.service).group_by(Ticket.service).filter(Ticket.service == service).filter(func.date(Ticket.date) == datetime.date.today()).all()
+    # try:
+    #     number = number[0][0]
+    # except:
+    #     number = 0
+    # number = number + 1
+    # ticket = Ticket(service, number, date, "READY")
+    # db.session.add(ticket)
+    # db.session.commit()
+    # flash('Ticket successfully generated')
+
+    # services = ['A','B','C']
+    # #users = db.session.query(User).all() # or you could have used User.query.all()
+    # numbers = db.session.query(func.max(Ticket.ticketnum),Ticket.service).group_by(Ticket.service).filter(func.date(Ticket.date) == datetime.date.today()).all()
+    # serviceNums = {}
+    # for num in numbers:
+    #     serviceNums[num[1]] = num[0]
+
+    return redirect(url_for('officer', serviceNumbers=[]))
 
 @app.route('/add-user', methods=['POST', 'GET'])
 def add_user():
@@ -80,7 +147,8 @@ def add_header(response):
     and also to cache the rendered page for 10 minutes.
     """
     response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
-    response.headers['Cache-Control'] = 'public, max-age=600'
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    # response.headers['Cache-Control'] = 'public, max-age=600'
     return response
 
 
