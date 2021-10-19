@@ -3,7 +3,7 @@
 <div class="container col-xxl-8 px-4 py-5 w-100">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
 
-        <div class="col-10 col-sm-8 col-lg-6 text-center">
+        <div class="col-12 col-sm-8 col-lg-6 text-center">
             <form action="{{ url_for('add_ticket', service='A') }}">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Get a ticket for service A</h1>
                 <p class="lead">Press the button to generate a ticket </p>
@@ -16,7 +16,7 @@
             <h1 style="font-size:500%;" id="ticketnumber">{{serviceNumbers["A"]}}</h1>
         </div>
 
-        <div class="col-10 col-sm-8 col-lg-6 text-center">
+        <div class="col-12 col-sm-8 col-lg-6 text-center">
             <form action="{{ url_for('add_ticket', service='B') }}">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Get a ticket for service B</h1>
                 <p class="lead">Press the button to generate a ticket </p>
@@ -30,7 +30,7 @@
             <h1 style="font-size:500%;" id="ticketnumber">{{serviceNumbers["B"]}}</h1>
         </div>
 
-        <div class="col-10 col-sm-8 col-lg-6 text-center">
+        <div class="col-12 col-sm-8 col-lg-6 text-center">
             <form action="{{ url_for('add_ticket', service='C') }}">
                 <h1 class="display-5 fw-bold lh-1 mb-3">Get a ticket for service C</h1>
                 <p class="lead">Press the button to generate a ticket </p>

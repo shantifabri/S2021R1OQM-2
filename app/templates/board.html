@@ -1,4 +1,47 @@
 {% set active=5 %} {% extends "base.html" %} {% block main %}
+<script>
+    $(document).ready(function(){
+var count=10;
+var counter=setInterval(timer1, 1000);
+var c1 = 1; var c2 = 74; var c3 = 5;
+
+var tmp;
+function timer1(){
+    count--;
+    if(count <= 0){
+        count = 10;
+        c1 +=1;
+        document.getElementById("counter1").innerHTML = c1;
+    }
+    document.getElementById("timer1").innerHTML= "Next Client in: " + (count.toString()) + " secs";
+}
+var count2=60;
+var counter2=setInterval(timer2, 1000);
+
+function timer2(){
+    count2--;
+    if(count2 <= 0){
+        count2 = 60;
+        c2 +=1;
+        document.getElementById("counter2").innerHTML = c2;
+    }
+    document.getElementById("timer2").innerHTML= "Next Client in: " + (count2.toString()) + " secs";
+}
+
+var count3=15;
+var counter3=setInterval(timer3, 1000);
+
+function timer3(){
+    count3--;
+    if(count3 <= 0){
+        count3 = 15;
+        c3 +=1;
+        document.getElementById("counter3").innerHTML = c3;
+    }
+    document.getElementById("timer3").innerHTML= "Next Client in: " + (count3.toString()) + " secs";
+}
+});
+</script>
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
 
@@ -7,6 +50,24 @@
             <p class="lead">Currently served Numbers and ETA </p>
 
         </div>
+        <div class="text-center">
+        <div class="col-md-4">
+            <h1>Service A</h1>
+            <h2 id="counter1">1</h2>
+            <h3 id="timer1">Next Client in</h3>
+        </div>
+        <div class="col-md-4">
+            <h1>Service B</h1>
+            <h2 id="counter2">74</h2>
+             <h3 id="timer2">Next Client in</h3>
+        </div>
+        <div class="col-md-4">
+            <h1>Service C</h1>
+            <h2 id="counter3">5</h2>
+            <h3 id="timer3">Next Client in</h3>
+        </div>
+            </div>
+
 
     </div>
 </div>
