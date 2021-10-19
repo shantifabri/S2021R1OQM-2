@@ -25,14 +25,14 @@ $ pip install -r requirements.txt
 Start the development server
 
 ```
-$ python run.py
+$ python application.py
 ```
 
 
-Browse to http://0.0.0.0:8080
+Browse to http://127.0.0.1:5000
 
-You can then add new users by browsing to http://0.0.0.0:8080/add-user and view
-a list of users by browsing to http://0.0.0.0:8080/users
+You can then add new users by browsing to http://127.0.0.1:5000/add-user and view
+a list of users by browsing to http://127.0.0.1:5000/users
 
 To reset the users table, run the following SQL query:
 ```
