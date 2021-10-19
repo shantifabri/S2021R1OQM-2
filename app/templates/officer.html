@@ -1,0 +1,47 @@
+{% set active=2 %} {% extends "base.html" %} {% block main %}
+
+<div class="container col-xxl-8 px-4 py-5 w-100">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+
+        <div class="col-10 col-sm-8 col-lg-6 text-center">
+            <form action="{{ url_for('serve_customer', service='A') }}">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Serve next customer for service A</h1>
+                <p class="lead">Press the button to serve a new customer </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start" align="center">
+                    <input type="submit" value="NEXT" class="btn btn-primary btn-lg" style="margin:auto;">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 text-center">
+            <h1 style="font-size:500%;" id="ticketnumber">0</h1>
+        </div>
+
+        <div class="col-10 col-sm-8 col-lg-6 text-center">
+            <form action="{{ url_for('serve_customer', service='A') }}">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Serve next customer for service B</h1>
+                <p class="lead">Press the button to serve a new customer </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start" align="center">
+                    <input type="submit" value="NEXT" class="btn btn-primary btn-lg" style="margin:auto;">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 text-center">
+            <h1 style="font-size:500%;" id="ticketnumber">0</h1>
+        </div>
+
+        <div class="col-10 col-sm-8 col-lg-6 text-center">
+            <form action="{{ url_for('serve_customer', service='A') }}">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Serve next customer for service C</h1>
+                <p class="lead">Press the button to serve a new customer </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start" align="center">
+                    <input type="submit" value="NEXT" class="btn btn-primary btn-lg" style="margin:auto;">
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6 text-center">
+            <h1 style="font-size:500%;" id="ticketnumber">0</h1>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
